@@ -1,0 +1,51 @@
+{
+  "entities": {
+    "WrongQuestion": {
+      "title": "WrongQuestion",
+      "description": "A record of a wrong question and its generated similar questions.",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "The UID of the user who owns this record."
+        },
+        "originalQuestion": {
+          "type": "object",
+          "properties": {
+            "text": { "type": "string" },
+            "imageUrl": { "type": "string" },
+            "options": { "type": "array", "items": { "type": "string" } },
+            "answer": { "type": "string" },
+            "userAnswer": { "type": "string" }
+          }
+        },
+        "knowledgePoint": {
+          "type": "string",
+          "description": "The core knowledge point identified by AI."
+        },
+        "similarQuestions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "question": { "type": "string" },
+              "answer": { "type": "string" },
+              "analysis": { "type": "string", "description": "Analysis focusing on common mistakes." }
+            }
+          }
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time"
+        }
+      },
+      "required": ["uid", "originalQuestion", "knowledgePoint", "similarQuestions", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/wrongQuestions/{questionId}": {
+      "schema": "WrongQuestion",
+      "description": "Collection of wrong question records."
+    }
+  }
+}
